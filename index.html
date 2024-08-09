@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    function addPost(userId, titleText, bodyText) {
+      const div = document.createElement("div");
+      div.setAttribute("class", "post"); // id 대신 class를 사용
+
+      const userid = document.createElement("p");
+      userid.setAttribute("class", "userid"); // id 대신 class를 사용
+      userid.textContent = userId;
+
+      const title = document.createElement("p");
+      title.setAttribute("class", "title"); // id 대신 class를 사용
+      title.textContent = titleText;
+
+      const body = document.createElement("p");
+      body.setAttribute("class", "body"); // id 대신 class를 사용
+      body.textContent = bodyText;
+
+      allPost.appendChild(div);
+      div.appendChild(userid);
+      div.appendChild(title);
+      div.appendChild(body);
+    }
+
+    $(document).ready(() => {
+      let allPost = $("#allPost");
+
+      for (let num = 1; num < 3; num++) {
+        fetch(`https://jsonplaceholder.typicode.com/posts/${num}`)
+          .then((response) => response.json())
+          .then((json) => {
+            // 데이터가 객체임을 가정하고 함수 호출
+            addPost(json.userId, json.title, json.body);
+          })
+          .catch((error) => console.error("Error:", error));
+        $.ajax({
+          url: "https://randomuser.me/api/",
+          dataType: "json",
+          success: function (data) {
+            console.log(data);
+          },
+        });
+      }
+    });
+  </script>
+  <body>
+    <div id="allPost">
+      <div id="post">
+        <p id="userid"></p>
+        <br />
+        <p id="title"></p>
+        <br />
+        <p id="body"></p>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!-- API를 불러와서 VELOG같은 사이트를 만들기
+ 다음주 화요일까지 -->
