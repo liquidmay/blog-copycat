@@ -35,8 +35,19 @@
 
     $(document).ready(() => {
       let allPost = $("#allPost");
+      let searchBtn = $(".searchBtn");
 
-      for (let num = 1; num < 3; num++) {
+      // 검색 버튼
+
+      searchBtn.click(function () {
+        let searchText = $(".searchText").val();
+
+        console.log(`{결과 : ${result}`);
+      });
+
+      // 제목에 특정단어가 포함되어있는 게시글만 보여주도록 검색버튼
+
+      for (let num = 1; num < 10; num++) {
         fetch(`https://jsonplaceholder.typicode.com/posts/${num}`)
           .then((response) => response.json())
           .then((json) => {
@@ -51,21 +62,16 @@
             console.log(data);
           },
         });
+        //* 제목에 특정단어가 포함되어 있는 게시글만 보여주도록 검색버튼을 만들어 주세요.
+        // filter() 배열 Method를 사용해서.
       }
     });
   </script>
   <body>
-    <div id="allPost">
-      <div id="post">
-        <p id="userid"></p>
-        <br />
-        <p id="title"></p>
-        <br />
-        <p id="body"></p>
-      </div>
-    </div>
+    <input type="text" class="searchText" />
+    <button class="searchBtn">검색</button>
+    <div id="allPost"></div>
   </body>
 </html>
 
-<!-- API를 불러와서 VELOG같은 사이트를 만들기
- 다음주 화요일까지 -->
+
